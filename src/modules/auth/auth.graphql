@@ -1,0 +1,23 @@
+type AuthAccess {
+  accessToken: String!
+}
+
+input SignInInput {
+    email: String!
+    password: String!
+}
+
+input SignUpInput {
+    name: String!
+    email: String!
+    password: String!
+}
+
+type Mutation {
+    signIn(signInInput: SignInInput!): AuthAccess!
+    signUp(signUpInput: SignUpInput!): AuthAccess!
+}
+
+type Query {
+    hello: String
+}
