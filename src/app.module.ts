@@ -8,6 +8,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 import { join } from 'path';
 import { AuthModule } from './modules/auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -21,8 +22,11 @@ import { AuthModule } from './modules/auth/auth.module';
         outputAs: 'class',
       }
     }),
+    ConfigModule.forRoot({
+      isGlobal: true
+    }),
     PrismaModule,
-    AuthModule
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
