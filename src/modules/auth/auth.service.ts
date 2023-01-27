@@ -13,7 +13,6 @@ export class AuthService {
     ) {}
 
     async signIn(signInInput: SignInInput) {
-        console.log(signInInput)
         const user = await this.prsimaService.user.findUnique({
             where: {
                 email: signInInput.email
