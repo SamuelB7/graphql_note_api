@@ -19,5 +19,5 @@ type Mutation {
 }
 
 type Query {
-    hello: String
+    me: String
 }

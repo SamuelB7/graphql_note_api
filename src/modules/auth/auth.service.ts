@@ -28,13 +28,14 @@ export class AuthService {
             const correctPassword = await bcrypt.compare(signInInput.password, user.password)
     
             if (!correctPassword) {
-                throw new BadRequestException("User not found", { cause: new Error() })
+                throw new BadRequestException("Incorrect email or password", { cause: new Error() })
             }
     
             const expiresIn = process.env.JWT_EXPIRES_IN || '24h';
     
             const payload = {
                 id: user.id,
+                name: user.name,
                 email: user.email
             }
     
@@ -61,6 +62,7 @@ export class AuthService {
 
             const payload = {
                 id: user.id,
+                name: user.name,
                 email: user.email
             }
 

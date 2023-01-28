@@ -1,4 +1,7 @@
+import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
 import { AuthService } from './auth.service';
 import { SignInInput } from './dto/signin.input';
 import { SignUpInput } from './dto/signup.input';
@@ -7,7 +10,8 @@ import { SignUpInput } from './dto/signup.input';
 export class AuthResolver {
   constructor(private readonly authService: AuthService) {}
 
-  @Query('hello')
+  @Query('me')
+  @UseGuards(JwtAuthGuard)
   hello() {
     return "HELLO WORLD"
   }

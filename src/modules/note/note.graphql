@@ -1,0 +1,33 @@
+type Note {
+  id: Int!
+  title: String!
+  content: String!
+  user_id: String!
+  created_at: DateTime!
+  updated_at: DateTime
+}
+
+scalar DateTime
+
+input CreateNoteInput {
+  title: String!
+  content: String!
+  user_id: String!
+}
+
+input UpdateNoteInput {
+  id: Int!
+  title: String
+  content: String
+}
+
+type Query {
+  notes: [Note]!
+  note(id: Int!): Note
+}
+
+type Mutation {
+  createNote(createNoteInput: CreateNoteInput!): Note!
+  updateNote(updateNoteInput: UpdateNoteInput!): Note!
+  removeNote(id: Int!): Note
+}
