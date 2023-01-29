@@ -22,7 +22,6 @@ export class SignUpInput {
 export class CreateNoteInput {
     title: string;
     content: string;
-    user_id: string;
 }
 
 export class UpdateNoteInput {
@@ -58,11 +57,13 @@ export abstract class IQuery {
 
     abstract notes(): Nullable<Note>[] | Promise<Nullable<Note>[]>;
 
+    abstract notesByUser(): Nullable<Note>[] | Promise<Nullable<Note>[]>;
+
     abstract note(id: number): Nullable<Note> | Promise<Nullable<Note>>;
 }
 
 export class Note {
-    id: number;
+    id: string;
     title: string;
     content: string;
     user_id: string;

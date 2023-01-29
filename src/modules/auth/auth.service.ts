@@ -9,13 +9,13 @@ import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
 @Injectable()
 export class AuthService {
     constructor(
-        private prsimaService: PrismaService,
+        private prismaService: PrismaService,
         private jwt: JwtService
     ) { }
 
     async signIn(signInInput: SignInInput) {
         try {
-            const user = await this.prsimaService.user.findUnique({
+            const user = await this.prismaService.user.findUnique({
                 where: {
                     email: signInInput.email
                 }
@@ -51,7 +51,7 @@ export class AuthService {
         try {
             let hash = await bcrypt.hash(signUpInput.password, 10)
 
-            const user = await this.prsimaService.user.create({
+            const user = await this.prismaService.user.create({
                 data: {
                     ...signUpInput,
                     password: hash

@@ -2,19 +2,30 @@ import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { NoteService } from './note.service';
 import { CreateNoteInput } from './dto/create-note.input';
 import { UpdateNoteInput } from './dto/update-note.input';
+import { User } from 'src/decorators/user-decorator';
+import { AuthUser } from 'src/entities/AuthUser.entity';
+import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
+import { UseGuards } from '@nestjs/common';
 
+@UseGuards(JwtAuthGuard)
 @Resolver('Note')
 export class NoteResolver {
   constructor(private readonly noteService: NoteService) {}
 
   @Mutation('createNote')
-  create(@Args('createNoteInput') createNoteInput: CreateNoteInput) {
+  create(@Args('createNoteInput') createNoteInput: CreateNoteInput, @User() user: AuthUser) {
+    createNoteInput.user_id = user.id
     return this.noteService.create(createNoteInput);
   }
 
-  @Query('note')
+ /*  @Query('notes')
   findAll() {
     return this.noteService.findAll();
+  } */
+
+  @Query('notesByUser')
+  findAllByUser(@User() user: AuthUser) {
+    return this.noteService.findAllByUser(user.id);
   }
 
   @Query('note')
