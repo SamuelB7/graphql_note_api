@@ -29,7 +29,7 @@ export class NoteResolver {
   }
 
   @Query('note')
-  findOne(@Args('id') id: number) {
+  findOne(@Args('id') id: string) {
     return this.noteService.findOne(id);
   }
 
@@ -39,7 +39,7 @@ export class NoteResolver {
   }
 
   @Mutation('removeNote')
-  remove(@Args('id') id: number) {
+  remove(@Args('id') id: string) {
     return this.noteService.remove(id);
   }
 }

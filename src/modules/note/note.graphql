@@ -15,19 +15,19 @@ input CreateNoteInput {
 }
 
 input UpdateNoteInput {
-  id: Int!
+  id: String!
   title: String
   content: String
 }
 
 type Query {
-  notes: [Note]!
+ """  notes: [Note]! """
   notesByUser: [Note]!
-  note(id: Int!): Note
+  note(id: String!): Note
 }
 
 type Mutation {
   createNote(createNoteInput: CreateNoteInput!): Note!
   updateNote(updateNoteInput: UpdateNoteInput!): Note!
-  removeNote(id: Int!): Note
+  removeNote(id: String!): Note
 }

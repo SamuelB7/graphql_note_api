@@ -25,7 +25,7 @@ export class CreateNoteInput {
 }
 
 export class UpdateNoteInput {
-    id: number;
+    id: string;
     title?: Nullable<string>;
     content?: Nullable<string>;
 }
@@ -49,17 +49,15 @@ export abstract class IMutation {
 
     abstract updateNote(updateNoteInput: UpdateNoteInput): Note | Promise<Note>;
 
-    abstract removeNote(id: number): Nullable<Note> | Promise<Nullable<Note>>;
+    abstract removeNote(id: string): Nullable<Note> | Promise<Nullable<Note>>;
 }
 
 export abstract class IQuery {
     abstract me(): Nullable<AuthUser> | Promise<Nullable<AuthUser>>;
 
-    abstract notes(): Nullable<Note>[] | Promise<Nullable<Note>[]>;
-
     abstract notesByUser(): Nullable<Note>[] | Promise<Nullable<Note>[]>;
 
-    abstract note(id: number): Nullable<Note> | Promise<Nullable<Note>>;
+    abstract note(id: string): Nullable<Note> | Promise<Nullable<Note>>;
 }
 
 export class Note {

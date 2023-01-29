@@ -6,7 +6,7 @@ export class UpdateNoteInput extends PartialType(CreateNoteInput) {
   
   @IsNotEmpty()
   @IsString()
-  id: number;
+  id: string;
 
   @IsNotEmpty()
   @IsString()

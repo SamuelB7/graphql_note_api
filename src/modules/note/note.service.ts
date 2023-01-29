@@ -28,24 +28,63 @@ export class NoteService {
     return `This action returns all note`;
   } */
 
-  async findAllByUser(userId) {
-    const notes = await this.prismaService.note.findMany({
-      where: {
-        user_id: userId
-      }
-    })
-    return notes;
+  async findAllByUser(userId: string) {
+    try {
+      const notes = await this.prismaService.note.findMany({
+        where: {
+          user_id: userId
+        }
+      })
+      return notes;
+    } catch (error) {
+      console.log(error)
+      return error.message
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} note`;
+  async findOne(noteId: string) {
+    try {
+      const note = await this.prismaService.note.findUnique({
+        where: {
+          id: noteId
+        }
+      })
+      return note
+    } catch (error) {
+      console.log(error)
+      return error.message
+    }
   }
 
-  update(id: number, updateNoteInput: UpdateNoteInput) {
-    return `This action updates a #${id} note`;
+  async update(id: string, updateNoteInput: UpdateNoteInput) {
+    try {
+      const note = await this.prismaService.note.update({
+        where: {
+          id: id
+        },
+        data: {
+          ...updateNoteInput,
+          updated_at: new Date()
+        }
+      })
+
+      return note
+    } catch (error) {
+      console.log(error)
+      return error.message
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} note`;
+  async remove(id: string) {
+    try {
+      return await this.prismaService.note.delete({
+        where: {
+          id: id
+        }
+      })
+    } catch (error) {
+      console.log(error)
+      return error.message
+    }
   }
 }
