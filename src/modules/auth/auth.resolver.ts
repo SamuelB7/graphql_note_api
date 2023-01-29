@@ -1,6 +1,7 @@
 import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { AuthGuard } from '@nestjs/passport';
+import { User } from 'src/decorators/user-decorator';
 import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
 import { AuthService } from './auth.service';
 import { SignInInput } from './dto/signin.input';
@@ -12,8 +13,8 @@ export class AuthResolver {
 
   @Query('me')
   @UseGuards(JwtAuthGuard)
-  hello() {
-    return "HELLO WORLD"
+  hello(@User() user) {
+    return user
   }
 
   @Mutation('signIn')

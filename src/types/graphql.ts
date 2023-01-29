@@ -35,6 +35,12 @@ export class AuthAccess {
     accessToken: string;
 }
 
+export class AuthUser {
+    id: string;
+    name: string;
+    email: string;
+}
+
 export abstract class IMutation {
     abstract signIn(signInInput: SignInInput): AuthAccess | Promise<AuthAccess>;
 
@@ -48,7 +54,7 @@ export abstract class IMutation {
 }
 
 export abstract class IQuery {
-    abstract me(): Nullable<string> | Promise<Nullable<string>>;
+    abstract me(): Nullable<AuthUser> | Promise<Nullable<AuthUser>>;
 
     abstract notes(): Nullable<Note>[] | Promise<Nullable<Note>[]>;
 

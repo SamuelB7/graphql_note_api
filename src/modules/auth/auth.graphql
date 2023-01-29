@@ -2,6 +2,12 @@ type AuthAccess {
   accessToken: String!
 }
 
+type AuthUser {
+    id: String!
+    name: String!
+    email: String!
+}
+
 input SignInInput {
     email: String!
     password: String!
@@ -19,5 +25,5 @@ type Mutation {
 }
 
 type Query {
-    me: String
+    me: AuthUser
 }
