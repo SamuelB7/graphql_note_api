@@ -30,6 +30,19 @@ export class UpdateNoteInput {
     content?: Nullable<string>;
 }
 
+export class CreateUserInput {
+    name: string;
+    email: string;
+    password: string;
+}
+
+export class UpdateUserInput {
+    id?: Nullable<number>;
+    name?: Nullable<string>;
+    email?: Nullable<string>;
+    password?: Nullable<string>;
+}
+
 export class AuthAccess {
     accessToken: string;
 }
@@ -50,6 +63,14 @@ export abstract class IMutation {
     abstract updateNote(updateNoteInput: UpdateNoteInput): Note | Promise<Note>;
 
     abstract removeNote(id: string): Nullable<Note> | Promise<Nullable<Note>>;
+
+    abstract createUser(createUserInput: CreateUserInput): User | Promise<User>;
+
+    abstract updateUser(updateUserInput: UpdateUserInput): User | Promise<User>;
+
+    abstract removeUser(id: number): Nullable<User> | Promise<Nullable<User>>;
+
+    abstract publicUpdateUser(updateUserInput: UpdateUserInput): User | Promise<User>;
 }
 
 export abstract class IQuery {
@@ -58,6 +79,10 @@ export abstract class IQuery {
     abstract notesByUser(): Nullable<Note>[] | Promise<Nullable<Note>[]>;
 
     abstract note(id: string): Nullable<Note> | Promise<Nullable<Note>>;
+
+    abstract users(): Nullable<User>[] | Promise<Nullable<User>[]>;
+
+    abstract user(id: string): Nullable<User> | Promise<Nullable<User>>;
 }
 
 export class Note {
@@ -65,6 +90,15 @@ export class Note {
     title: string;
     content: string;
     user_id: string;
+    created_at: DateTime;
+    updated_at?: Nullable<DateTime>;
+}
+
+export class User {
+    id: string;
+    name: string;
+    email: string;
+    password: string;
     created_at: DateTime;
     updated_at?: Nullable<DateTime>;
 }
